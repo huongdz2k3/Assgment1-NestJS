@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "./../Users/user.model"
@@ -15,13 +15,23 @@ export class UsersService {
     }
 
     async getAllUser() {
-        const allUser = await this.userModel.find()
+        const allUser = await this.userModel.find().populate({
+            path: 'FavoriteGame',
+            populate: {
+                path: 'Game'
+            }
+        })
         return allUser
     }
     async getUser(userId: string) {
-        const user = await this.userModel.findById(userId)
+        const user = await this.userModel.findById(userId).populate({
+            path: 'FavoriteGame',
+            populate: {
+                path: 'Game'
+            }
+        })
         if (!user) {
-            return { err: "User does not exist" }
+            return new BadRequestException({ err: "User does not exist" })
         }
         return user
     }
