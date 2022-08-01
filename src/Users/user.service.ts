@@ -31,7 +31,7 @@ export class UsersService {
             }
         })
         if (!user) {
-            return new BadRequestException({ err: "User does not exist" })
+            return null
         }
         return user
     }

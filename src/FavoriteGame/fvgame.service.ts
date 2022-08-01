@@ -18,11 +18,11 @@ export class FvGameService {
     async createFvList(userId: string, gameId: string) {
         const user = await this.userModel.findById(userId)
         if (!user) {
-            return NotFoundError
+            return new Error("User does not exist");
         }
         const game = await this.gameModel.findById(gameId)
         if (!game) {
-            return NotFoundError
+            return new Error("Game does not exist");
         }
         const gameLiked = await this.FvGameModel.findOne({ game: gameId, user: userId })
         if (gameLiked) {

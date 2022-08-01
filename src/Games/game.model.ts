@@ -1,17 +1,13 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { ApiProperty } from '@nestjs/swagger'
+
+@Schema()
 export class Game {
     @Prop()
-    @ApiProperty({ type: String, description: 'name' })
     name: string
-
+    @Prop()
+    id: string
 }
 
 const gameSchema = SchemaFactory.createForClass(Game)
 export { gameSchema }
-export interface Game {
-    id: string,
-    name: string
-}
-
-// 

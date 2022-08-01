@@ -11,14 +11,15 @@ export type FvGameDocument = FvGame & Document
 
 export class FvGame {
     @Prop()
-    id: string
-    @Prop()
     @ApiProperty({ type: String, description: 'userId' })
     user: string
 
     @Prop()
     @ApiProperty({ type: String, description: 'gameId' })
     game: string
+
+    @Prop()
+    id: string
 }
 
 const fvGameSchema = SchemaFactory.createForClass(FvGame)
@@ -31,6 +32,7 @@ fvGameSchema.virtual('Game', {
 })
 
 export { fvGameSchema }
+
 
 export interface fvGame {
     id: string,
