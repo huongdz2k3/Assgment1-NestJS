@@ -41,12 +41,12 @@ export class FvGameService {
         if (!game) {
             return NotFoundError
         }
-        await this.FvGameModel.findOneAndDelete({ user: userId, game: gameId })
-        return { mess: "Delete Success" }
+        const fvList = await this.FvGameModel.findOneAndDelete({ user: userId, game: gameId })
+        return fvList
     }
     async deleteList(userId: string) {
-        await this.FvGameModel.deleteMany({ user: userId })
-        return { mess: "Delete Success" }
+        const games = await this.FvGameModel.deleteMany({ user: userId })
+        return games
 
     }
 }

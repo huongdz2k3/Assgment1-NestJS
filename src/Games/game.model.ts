@@ -5,8 +5,6 @@ export class Game {
     @ApiProperty({ type: String, description: 'name' })
     name: string
 
-    @Prop({ default: Date.now() })
-    createAt: Date
 }
 
 const gameSchema = SchemaFactory.createForClass(Game)

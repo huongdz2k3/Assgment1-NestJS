@@ -15,8 +15,6 @@ export class User {
     @ApiProperty({ type: String, description: 'username' })
     username: string
 
-    @Prop({ default: Date.now() })
-    createAt: Date
 }
 
 const UserSchema = SchemaFactory.createForClass(User)

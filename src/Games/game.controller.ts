@@ -3,9 +3,6 @@ import { ApiBody, ApiBadGatewayResponse, ApiCreatedResponse, ApiOkResponse } fro
 import { Model } from "mongoose";
 import { Game } from "./game.model";
 import { GameService } from "./game.service";
-
-
-
 @Controller('game')
 export class GamesController {
 
