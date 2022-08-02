@@ -14,7 +14,8 @@ export class User {
     @Prop()
     @ApiProperty({ type: String, description: 'username' })
     username: string
-
+    @Prop()
+    id: string
 }
 
 const UserSchema = SchemaFactory.createForClass(User)
@@ -24,7 +25,3 @@ UserSchema.virtual('FavoriteGame', {
     localField: '_id'
 })
 export { UserSchema }
-export interface User {
-    id: string,
-    username: string
-}

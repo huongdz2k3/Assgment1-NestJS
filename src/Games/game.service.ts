@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { NotFoundError } from "rxjs";
@@ -14,7 +14,7 @@ export class GameService {
     async getOneGame(id: string) {
         const game = await this.gameModel.findById(id)
         if (!game) {
-            return NotFoundError
+            throw new BadRequestException('Game does not exist')
         }
         return game
     }

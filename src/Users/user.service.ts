@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "./../Users/user.model"
@@ -9,6 +9,21 @@ export class UsersService {
     // write userModel 
 
     async createUser(username: string) {
+        let format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        if (format.test(username)) {
+            throw new BadRequestException('Username must not have special characters')
+        }
+        if (username.length > 50) {
+            throw new BadRequestException('Username must less than 50 characters')
+        }
+        if (username.length === 0) {
+            throw new BadRequestException('Username must not be empty')
+        }
+        const currentUser = await this.userModel.findOne({ username: username })
+
+        if (currentUser) {
+            throw new BadRequestException('User exist')
+        }
         const newUser = new this.userModel({ username: username })
         const result = await newUser.save()
         return result
@@ -31,9 +46,13 @@ export class UsersService {
             }
         })
         if (!user) {
-            return null
+            throw new BadRequestException('User does not exist')
         }
         return user
+    }
+
+    async deleteUser(username: string) {
+        return await this.userModel.findOneAndDelete({ username: username })
     }
 
 }

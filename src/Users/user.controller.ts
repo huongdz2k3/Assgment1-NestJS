@@ -24,7 +24,8 @@ export class UsersController {
     @Get(':id')
     @ApiCreatedResponse({ description: "Get one user" })
     @ApiBadGatewayResponse({ description: "Does not find user" })
-    getUser(@Param('id') userId: string) {
-        return this.userService.getUser(userId)
+    async getUser(@Param('id') userId: string) {
+        const user = await this.userService.getUser(userId)
+        return user
     }
 }
